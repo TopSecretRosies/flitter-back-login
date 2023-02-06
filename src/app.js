@@ -3,13 +3,15 @@ import morgan from "morgan";
 import pkg from '../package.json'
 import postsRoutes from './routes/posts.routes'
 import authRoutes from './routes/auth.routes'
-import { createRoles } from "./libs/initialSetup";
-import userRoutes from "./routes/user.routes"
+import { createRoles, createPosts, createUsers } from "./libs/initialSetup";
+import userRoutes from "./routes/user.routes";
+const multer  = require('multer')
+const upload = multer({ dest: './public/images' })
 
 const app = express()
 createRoles();
-
-
+createPosts();
+createUsers();
 
 app.set('pkg', pkg)
 
@@ -27,7 +29,7 @@ app.get('/', (req, res) => {
     })
 })
 
-app.use('/api/posts', postsRoutes)
+app.use('/api/posts', upload.single('imgURL'), postsRoutes)
 app.use('/api/auth', authRoutes)
 app.use('/api/users', userRoutes)
 
