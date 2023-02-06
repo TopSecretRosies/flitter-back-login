@@ -42,7 +42,7 @@ export const createPosts = async () => {
         new Post({
           author: 'estela', 
           text: "Qué os parece esto?",
-          imgURL: ""
+          imgURL: "src/public/images/mejores-playas-de-bali.jpg"
         }).save()
 
     ])
