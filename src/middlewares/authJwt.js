@@ -11,12 +11,13 @@
   
       if(!token) return res.status(403).json({message: "No token provided"})
   
-     const decoded = jwt.verify(token, config.SECRET)
-     req.userId = decoded.id;
-     
-     const user = await User.findById(req.userId, {password: 0})
-     if(!user) return res.status(404).json({message: "no user found"})
-  
+      const decoded = jwt.verify(token, config.SECRET)
+      req.userId = decoded.id;
+      
+      const user = await User.findById(req.userId, {password: 0})
+      if(!user) return res.status(404).json({message: "no user found"})
+      console.log(user)
+      res.json(user)
   
       next()
    } catch(error) {

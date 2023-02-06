@@ -27,7 +27,7 @@ export const createPosts = async () => {
   try {
     const count = await Post.estimatedDocumentCount()
 
-    if(count > 0)return;
+    if(count > 3)return;
 
     const posts = await Promise.all([
         new Post({
@@ -54,30 +54,30 @@ export const createPosts = async () => {
 };
 
 export const createUsers = async () => {
-
+  
   try {
     const count = await User.estimatedDocumentCount()
 
-    if(count > 0)return;
+    if(count > 3)return;
 
     const users = await Promise.all([
         new User({
           username: "sonia",
           email: "sonia@email.com",
           password: "sonia123",
-          roles: ["admin"],
+          roles: [],
         }).save(),
         new User({
           username: 'carol', 
           email: "carol@email.com",
           password: "carol123",
-          roles: ["moderator"]
+          roles: []
         }).save(),
         new User({
-          username: 'estela', 
-          email: "estela@email.com",
-          password: "estela123",
-          roles: ["user"]
+          username: 'carlos86', 
+          email: "calrlos86@email.com",
+          password: "password",
+          roles: []
         }).save()
 
     ])
