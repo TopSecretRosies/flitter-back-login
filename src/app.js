@@ -13,7 +13,7 @@ const app = express(),
     options = {allow : {
         origin: '*',
         methods: 'GET,PATCH,PUT,POST,DELETE,HEAD,OPTIONS',
-        headers: 'Content-Type, Authorization, Content-Length, X-Requested-With, X-HTTP-Method-Override'
+        headers: 'Content-Type, Authorization, Content-Length, X-Requested-With, X-HTTP-Method-Override, x-access-token'
     },
     expose :{
         headers : null
