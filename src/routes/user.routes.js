@@ -5,8 +5,6 @@ import {authJwt, verifySignup}  from '../middlewares'
 
 router.post('/',[
     authJwt.verifyToken,
-    authJwt.isAdmin,
-    verifySignup.checkRolesExisted
 ],userCtrl.createUser);
 
 // Ruta para obtener un producto

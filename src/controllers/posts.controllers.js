@@ -1,4 +1,5 @@
 import Post from "../models/Post"
+import router from "../routes/posts.routes";
 
 // Función para crear publicaciones
 export const createPost = async (req, res) => {
@@ -14,7 +15,6 @@ export const createPost = async (req, res) => {
 export const getPosts = async (req, res) => {
      const post = await Post.find()
      res.json(post)
-
 }
 
 // Función para obtener una publicación por id
@@ -39,4 +39,14 @@ export const deletePostById = async (req, res) => {
     const {postId} = req.params;
     await Post.findByIdAndDelete(postId)
     res.status(204).json()
+}
+
+//Chronologica order
+
+export const getChronologicalPosts = async (req, res) => {
+    const postsOrderedChronologically =  await Post.find()
+    let result = postsOrderedChronologically.sort((a, b) => new Date(b.createdAt).getTime() -
+    new Date(a.createdAt).getTime());
+
+    res.json(result)
 }
