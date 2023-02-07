@@ -27,7 +27,7 @@ export const createPosts = async () => {
   try {
     const count = await Post.estimatedDocumentCount()
 
-    if(count > 3)return;
+    if(count >= 3)return;
 
     const posts = await Promise.all([
         new Post({
@@ -58,7 +58,7 @@ export const createUsers = async () => {
   try {
     const count = await User.estimatedDocumentCount()
 
-    if(count > 3)return;
+    if(count >= 3)return;
 
     const users = await Promise.all([
         new User({
