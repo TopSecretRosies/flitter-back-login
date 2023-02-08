@@ -2,14 +2,10 @@ import { Router } from "express";
 import Post from "../models/Post";
 import * as postsCtrl from '../controllers/posts.controllers';
 import { authJwt } from "../middlewares";
-
+import {verifyToken } from "../middlewares/authJwt";
 const router = Router();
 const multer  = require('multer');
 const path = require('path');
-
-const upload = multer({ storage: Storage, dest: path.join(__dirname, '../public/posts') })
-
-import {verifyToken } from "../middlewares/authJwt";
 
 
 const Storage = multer.diskStorage({
@@ -18,6 +14,8 @@ const Storage = multer.diskStorage({
         cb(null, file.originalname)
     }
 })
+
+const upload = multer({ storage: Storage, dest: path.join(__dirname, '../public/posts') })
 
 // Función para crear publicaciones
 // Ruta para crear un post
