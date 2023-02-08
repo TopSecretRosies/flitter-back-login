@@ -4,8 +4,8 @@ import { Schema, model } from "mongoose";
     author: String,
     text: String,
     image: Object,
-    date: Date
-
+    createdAt: Date,
+    updatedAt: Date
 },{
     timestamps: true,
     versionKey: false
