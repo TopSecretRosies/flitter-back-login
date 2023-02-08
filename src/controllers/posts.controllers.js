@@ -1,4 +1,6 @@
 import Post from "../models/Post"
+const multer  = require('multer')
+const upload = multer({ dest: './public/images' })
 
 // Función para crear publicaciones
 export const createPost = async (req, res) => {

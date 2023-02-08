@@ -5,6 +5,7 @@ import postsRoutes from './routes/posts.routes'
 import authRoutes from './routes/auth.routes'
 import { createRoles, createPosts, createUsers } from "./libs/initialSetup";
 import userRoutes from "./routes/user.routes";
+const path = require('path')
 var cors = require('cors-express');
 const multer  = require('multer')
 const upload = multer({ dest: './public/images' })
@@ -37,7 +38,7 @@ createUsers();
 
 app.set('pkg', pkg)
 
-
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors(options));
 app.use(morgan('dev'))
 app.use(express.json())
@@ -51,7 +52,7 @@ app.get('/', (req, res) => {
     })
 })
 
-app.use('/api/posts', upload.single('imgURL'), postsRoutes)
+app.use('/api/posts', postsRoutes)
 app.use('/api/auth', authRoutes)
 app.use('/api/users', userRoutes)
 
