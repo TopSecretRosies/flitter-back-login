@@ -24,13 +24,13 @@ export const createPosts = async () => {
   try {
     const count = await Post.estimatedDocumentCount()
 
-    if(count > 3)return;
+    if(count >= 3)return;
 
     const posts = await Promise.all([
         new Post({
           author: 'sonia', 
           text: "Los gatos son los mejores", 
-          imgURL: "src/public/images/cat-551554_960_720.jpg"
+          image: "http://localhost:3000/posts/cat-551554_960_720.jpg"
         }).save(),
         new Post({
           author: 'carol', 
@@ -39,7 +39,7 @@ export const createPosts = async () => {
         new Post({
           author: 'estela', 
           text: "Qué os parece esto?",
-          imgURL: "src/public/images/mejores-playas-de-bali.jpg"
+          image: "http://localhost:3000/posts/mejores-playas-de-bali.jpg"
         }).save()
 
     ])
@@ -55,7 +55,7 @@ export const createUsers = async () => {
   try {
     const count = await User.estimatedDocumentCount()
 
-    if(count > 3)return;
+    if(count >= 3)return;
 
     const users = await Promise.all([
         new User({

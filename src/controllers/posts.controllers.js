@@ -1,19 +1,13 @@
 import Post from "../models/Post"
+
 import router from "../routes/posts.routes";
 
-// Función para crear publicaciones
-export const createPost = async (req, res) => {
-    
-    const { author, text, imgURL } = req.body
-    const newPost = new Post({ author, text, imgURL });
 
-    const postSaved = await newPost.save()
 
-    res.status(201).json(postSaved)
-}
 // Función para obtener publicaciones
 export const getPosts = async (req, res) => {
      const post = await Post.find()
+
      res.json(post)
 }
 

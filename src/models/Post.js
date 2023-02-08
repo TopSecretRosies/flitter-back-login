@@ -3,7 +3,7 @@ import { Schema, model } from "mongoose";
  const postSchema = new Schema({
     author: String,
     text: String,
-    imgURL: String,
+    image: Object,
     createdAt: Date,
     updatedAt: Date
 },{
