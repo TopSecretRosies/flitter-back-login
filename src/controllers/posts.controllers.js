@@ -1,8 +1,29 @@
 import Post from "../models/Post"
+const multer  = require('multer');
+const path = require('path');
 
-import router from "../routes/posts.routes";
+const Storage = multer.diskStorage({
+    destination: path.join(__dirname, '../public/posts'),
+    filename: function (req, file, cb) {
+        cb(null, file.originalname)
+    }
+})
 
+export const upload = multer({ storage: Storage, dest: path.join(__dirname, '../public/posts') })
 
+// Función para crear publicaciones
+export const createPost = async (req, res) => {
+    const image = req.file
+    const { author, text } = req.body
+    const newPost = new Post({ 
+        author, 
+        text, 
+        image: `http://localhost:3000/posts/${image.filename}`
+    });
+    const postSaved = await newPost.save()
+
+    res.status(201).json(postSaved)
+}
 
 // Función para obtener publicaciones
 export const getPosts = async (req, res) => {
