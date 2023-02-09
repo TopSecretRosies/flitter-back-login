@@ -63,18 +63,21 @@ export const createUsers = async () => {
           email: "sonia@email.com",
           password: "sonia123",
           roles: [],
+          avatar: "http://localhost:3000/users/senora-riendo-peinado-moda-posando-fascinante-modelo-femenino-camiseta-blanca-divirtiendose.jpg"
         }).save(),
         new User({
           username: 'carol', 
           email: "carol@email.com",
           password: "carol123",
-          roles: []
+          roles: [],
+          avatar: "http://localhost:3000/users/retrato-joven-sonriente-senalando-dedo.jpg"
         }).save(),
         new User({
           username: 'carlos86', 
           email: "calrlos86@email.com",
           password: "password",
-          roles: []
+          roles: [],
+          avatar: "http://localhost:3000/users/feliz-sonriente-guapo-contra-fondo-azul.jpg"
         }).save()
 
     ])
