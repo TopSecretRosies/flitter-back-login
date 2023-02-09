@@ -1,9 +1,12 @@
 import { Schema, model } from "mongoose";
 
- const postSchema = new Schema({
+//
+
+
+const postSchema = new Schema({
     author: String,
     text: String,
-    image: Object,
+    image: String,
     createdAt: Date,
     updatedAt: Date
 },{
