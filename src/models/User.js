@@ -17,7 +17,8 @@ const userSchema = new Schema({
     roles: [{
         ref: "Role",
         type: Schema.Types.ObjectId
-    }]
+    }], 
+    avatar: String
 }, {
     timestamps: true, 
     versionKey: false

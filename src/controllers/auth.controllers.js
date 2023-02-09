@@ -2,16 +2,29 @@ import User from '../models/User'
 import jwt from 'jsonwebtoken';
 import config from '../config';
 import Roles from '../models/Roles';
+const multer  = require('multer');
+const path = require('path');
+
+const Storage = multer.diskStorage({
+    destination: path.join(__dirname, '../public/users'),
+    filename: function (req, file, cb) {
+        cb(null, file.originalname)
+    }
+})
+
+export const upload = multer({ storage: Storage, dest: path.join(__dirname, '../public/users') })
 
 
 // Función para el signup
 export const signup = async (req, res) => {
+    const avatar = req.file
     const{ username, email, password, roles } = req.body;
    // Se crea el usuario
     const newUser = new User({
         username,
         email,
-        password: await User.encryptPassword(password)
+        password: await User.encryptPassword(password),
+        avatar: `http://localhost:3000/users/${avatar.filename}`
     })
 
     if(roles) {
