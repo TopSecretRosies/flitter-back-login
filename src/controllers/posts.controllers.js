@@ -1,4 +1,5 @@
 import Post from "../models/Post"
+import User from "../models/User";
 import router from "../routes/posts.routes";
 
 // Función para crear publicaciones
@@ -50,3 +51,33 @@ export const getChronologicalPosts = async (req, res) => {
 
     res.json(result)
 }
+
+//post por userid
+
+export const getUserPosts = async (req, res) => {
+    const result = await Post.aggregate(
+        [
+        {
+            $lookup:
+              {
+                from: "User",
+                localField: "author",
+                foreignField: "_id",
+                as: "userauthor"
+              }
+            },
+            {$unwind: "$userauthor"}
+         
+    ])
+    res.json(result)
+}
+//export const getUserPosts = async (req, res) => {
+  //  const allUserPosts = await Post.find({user:req.user._id}).populate("Posts")
+    //res.json({allUserPosts})
+//}
+
+//export const getUserPosts = async (req, res) => {
+  //  Post.find({user:req.user._id}).populate("User")
+    //.then(userposts =>{
+   //res.json({userposts});
+//})};
