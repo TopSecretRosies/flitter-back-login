@@ -9,6 +9,7 @@ Start application in developer mode:
 
 ```sh
 npm run dev
+
 ```
 
 Start application:
@@ -20,6 +21,16 @@ npm start
 Puerto
 ```sh
 http://localhost:3000/
+```
+
+Perfil y puublicaciones de un usuario
+```sh
+[GET] /api/profile
+```
+
+Subir imagen de perfil desde el perfil
+```sh
+[POST] /api/profile
 ```
 
 Listado de publicaciones

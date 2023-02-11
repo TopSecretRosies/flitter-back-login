@@ -1,4 +1,5 @@
 import Post from "../models/Post"
+import User from "../models/User";
 const multer  = require('multer');
 const path = require('path');
 
@@ -15,8 +16,7 @@ export const upload = multer({ storage: Storage, dest: path.join(__dirname, '../
 export const createPost = async (req, res) => {
     const image = req.file
     const { author, text } = req.body
-    const newPost = new Post({ 
-        author, 
+    const newPost = new Post({  
         text,  
     });
 
@@ -24,6 +24,10 @@ export const createPost = async (req, res) => {
         const newimage = `http://localhost:3000/posts/${image.filename}`
         newPost.image = newimage
     }
+    if(author) {
+        const foundUser = await User.find({username: {$in: author}})
+        newPost.author = foundUser.map(user => user._id)
+    } //
     const postSaved = await newPost.save()
 
     res.status(201).json(postSaved)
@@ -31,8 +35,7 @@ export const createPost = async (req, res) => {
 
 // Función para obtener publicaciones
 export const getPosts = async (req, res) => {
-     const post = await Post.find()
-
+     const post = await Post.find().populate({path: 'author', select: 'username -_id'})
      res.json(post)
 }
 
@@ -40,8 +43,6 @@ export const getPosts = async (req, res) => {
 export const getPostById = async (req, res) => {
    const post =  await Post.findById(req.params.postId);
    res.status(200).json(post)
-
-    
 }
 
 // Función para actualizar una publicación por id
@@ -69,3 +70,4 @@ export const getChronologicalPosts = async (req, res) => {
 
     res.json(result)
 }
+

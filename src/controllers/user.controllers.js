@@ -1,4 +1,7 @@
+import jwt from 'jsonwebtoken'
+import config  from '../config';
 import User from "../models/User"
+import Post from "../models/Post"
 const multer  = require('multer');
 const path = require('path');
 
@@ -38,12 +41,25 @@ export const updateUserById = async (req, res) => {
 
 //Función para actualizar la foto de un usuario por id
 export const updateProfilePhoto = async (req, res) => {
-    const avatar = req.file
-    const newAvatar = `http://localhost:3000/users/${avatar.filename}`
-    const user = await User.findById(req.params.userId)
-    user.avatar = newAvatar
-    console.log(user)
-    res.status(200).json(user)
+    try {
+        const token = req.headers["x-access-token"]
+    
+        if(!token) return res.status(403).json({message: "No token provided"})
+        console.log(token)
+        const decoded = jwt.verify(token, config.SECRET)
+        req.userId = decoded.id;
+
+        const avatar = req.file
+        console.log(avatar)
+        const newAvatar = `http://localhost:3000/users/${avatar.filename}`
+
+        const user = await User.findById(req.userId, {password: 0})
+        user.avatar = newAvatar
+        console.log(user)
+        res.status(200).json(user)
+    } catch(error) {
+        return res.status(401).json({message: "Unauthorized"})
+     }
 }
 
 //Función para eliminar un usuario
@@ -52,3 +68,9 @@ export const deleteUserById = async (req, res) => {
     await User.findByIdAndDelete(userId)
     res.status(204).json()
 }
+
+//Función para conseguir los posts de un usuario
+export const getUserPosts = async (req, res) => {
+    const user =  await User.findById(req.params.userId);
+    const post =  await Post.find({author: user}).populate({path: 'author', select: 'username -_id'})
+    res.status(200).json(post)}

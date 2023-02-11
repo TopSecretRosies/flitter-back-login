@@ -12,7 +12,7 @@ router.get('/', userCtrl.getUsers)
 router.get('/:userId', userCtrl.getUserById)
 router.put('/:userId', userCtrl.updateUserById)
 router.delete('/:userId', userCtrl.deleteUserById)
-
+router.get('/userposts/:userId', userCtrl.getUserPosts)
 
 
 
