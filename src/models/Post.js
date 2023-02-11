@@ -8,7 +8,8 @@ const postSchema = new Schema({
     text: String,
     image: String,
     createdAt: Date,
-    updatedAt: Date
+    updatedAt: Date, 
+    kudos: Number
 },{
     timestamps: true,
     versionKey: false

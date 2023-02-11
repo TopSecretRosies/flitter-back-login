@@ -9,6 +9,10 @@ router.post('/',[
 
 // Ruta para obtener un producto
 router.get('/', userCtrl.getUsers)
+router.get('/:userId', userCtrl.getUserById)
+router.put('/:userId', userCtrl.updateUserById)
+router.delete('/:userId', userCtrl.deleteUserById)
+
 
 
 

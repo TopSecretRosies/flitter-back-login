@@ -17,9 +17,13 @@ export const createPost = async (req, res) => {
     const { author, text } = req.body
     const newPost = new Post({ 
         author, 
-        text, 
-        image: `http://localhost:3000/posts/${image.filename}`
+        text,  
     });
+
+    if(image) {
+        const newimage = `http://localhost:3000/posts/${image.filename}`
+        newPost.image = newimage
+    }
     const postSaved = await newPost.save()
 
     res.status(201).json(postSaved)

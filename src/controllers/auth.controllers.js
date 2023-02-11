@@ -24,8 +24,12 @@ export const signup = async (req, res) => {
         username,
         email,
         password: await User.encryptPassword(password),
-        avatar: `http://localhost:3000/users/${avatar.filename}`
     })
+
+    if(avatar) {
+        const newAvatar = `http://localhost:3000/users/${avatar.filename}`
+        newUser.avatar = newAvatar
+    }
 
     if(roles) {
         const foundRoles = await Roles.find({name: {$in: roles}})
@@ -47,8 +51,6 @@ export const signup = async (req, res) => {
     res.status(200).json({token})
     
 }
-
-
 
 // Función para el signin
 export const signin= async (req, res) => {
