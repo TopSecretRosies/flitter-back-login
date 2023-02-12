@@ -17,5 +17,6 @@ router.put('/:postId', postsCtrl.updatePostById)
 router.delete('/:postId', postsCtrl.deletePostById)
 // Ruta para obtener los posts actualizados cronologicamente
 router.get('/all/chronologically', postsCtrl.getChronologicalPosts)
-
+// Ruta para filtrar por texto
+router.get('/search/:text', postsCtrl.getPostByText)
 export default router;

@@ -1,3 +1,4 @@
+
 import Post from "../models/Post"
 import User from "../models/User";
 const multer  = require('multer');
@@ -69,5 +70,13 @@ export const getChronologicalPosts = async (req, res) => {
     new Date(a.createdAt).getTime());
 
     res.json(result)
+}
+
+// FUnción para filtrar publicaciones
+export const getPostByText = async(req, res) => {
+    const {text} = req.params;
+    console.log(text)
+   const post = await Post.find({text})
+   res.json(post)
 }
 

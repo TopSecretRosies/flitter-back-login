@@ -7,7 +7,7 @@ import { verifySignup, authJwt } from "../middlewares";
 router.post('/signup', [verifySignup.checkDuplicateUsernameOrEmail], authCtrl.upload.single('avatar'), authCtrl.signup)
 router.post('/signin', authCtrl.signin)
 router.get('/profile', [authJwt.verifyToken])
-router.post('/profile/', userCtrl.upload.single('avatar'), userCtrl.updateProfilePhoto)
+router.post('/profile', userCtrl.upload.single('avatar'), userCtrl.updateProfilePhoto)
 
 
 export default router;
