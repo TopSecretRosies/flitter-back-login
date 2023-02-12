@@ -6,7 +6,7 @@ import authRoutes from './routes/auth.routes'
 import { createRoles, createPosts, createUsers } from "./libs/initialSetup";
 import userRoutes from "./routes/user.routes";
 const path = require('path')
-var cors = require('cors-express');
+const cors = require('cors-express');
 
 const app = express(),
     options = {allow : {

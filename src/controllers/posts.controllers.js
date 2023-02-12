@@ -1,3 +1,5 @@
+ import jwt from 'jsonwebtoken'
+ import config  from '../config';
 import Post from "../models/Post"
 import User from "../models/User";
 const multer  = require('multer');
@@ -14,20 +16,25 @@ export const upload = multer({ storage: Storage, dest: path.join(__dirname, '../
 
 // Función para crear publicaciones
 export const createPost = async (req, res) => {
+    const token = req.headers["x-access-token"]
+    if(!token) return res.status(403).json({message: "No token provided"})
+    const decoded = jwt.verify(token, config.SECRET)
+    req.userId = decoded.id;
+    
+
     const image = req.file
-    const { author, text } = req.body
+    const author = await User.findById(req.userId, {password: 0})
+    const { text } = req.body
     const newPost = new Post({  
-        text,  
+        text,
+        author  
     });
 
     if(image) {
         const newimage = `http://localhost:3000/posts/${image.filename}`
         newPost.image = newimage
     }
-    if(author) {
-        const foundUser = await User.find({username: {$in: author}})
-        newPost.author = foundUser.map(user => user._id)
-    } //
+
     const postSaved = await newPost.save()
 
     res.status(201).json(postSaved)

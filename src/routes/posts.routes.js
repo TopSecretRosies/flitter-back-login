@@ -6,7 +6,7 @@ const router = Router();
 
 
 // Ruta para crear un post
-router.post('/', postsCtrl.upload.single('image'), postsCtrl.createPost)
+//router.post('/', postsCtrl.upload.single('image'), postsCtrl.createPost)
 // Ruta para obtener un producto
 router.get('/', postsCtrl.getPosts)
 // Ruta para obtener un solo post por id
