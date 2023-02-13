@@ -1,6 +1,6 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 
-const postSchema = new Schema({
+const postSchema = mongoose.Schema({
     author: [{
         type: Schema.Types.ObjectId,
         ref: "User"
@@ -15,4 +15,14 @@ const postSchema = new Schema({
     versionKey: false
 })
 
-export default model('Post', postSchema)
+postSchema.statics.lista = function(filtro, skip, limit) {
+    const query = Post.find(filtro).populate('author', 'username avatar -_id');
+    query.skip(skip);
+    query.limit(limit);
+    //query.select(fields);
+    //query.sort(sort);
+    return query.exec();
+}
+
+const Post = mongoose.model('Post', postSchema)
+module.exports = Post

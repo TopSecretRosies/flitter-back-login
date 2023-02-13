@@ -19,4 +19,5 @@ router.delete('/:postId', postsCtrl.deletePostById)
 router.get('/all/chronologically', postsCtrl.getChronologicalPosts)
 // Ruta para filtrar por texto
 router.get('/search/:text', postsCtrl.getPostByText)
+
 export default router;

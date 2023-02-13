@@ -1,6 +1,5 @@
- import jwt from 'jsonwebtoken'
- import config  from '../config';
-
+import jwt from 'jsonwebtoken'
+import config  from '../config';
 import Post from "../models/Post"
 import User from "../models/User";
 const multer  = require('multer');
@@ -43,8 +42,26 @@ export const createPost = async (req, res) => {
 
 // Función para obtener publicaciones
 export const getPosts = async (req, res) => {
-     const post = await Post.find().populate('author', 'username avatar -_id')
-     res.json(post)
+    // Filtros
+    const author = req.query.author     //api/posts/?author=
+    const text = req.query.text         //api/posts/?text=
+    const date = req.query.createdAt    //api/posts/?createdAt=
+    // Paginación                       /api/posts?skip=0&limit=10
+    const skip = req.query.skip;
+    const limit = req.query.limit;
+
+    const filtro = {}
+    if (author) {
+        const foundUser = await User.find({username: {$in: author}})
+        filtro.author = foundUser
+    }
+    if (text) {
+        filtro.text = text
+    }
+
+    const post = await Post.lista(filtro, skip, limit)
+    let postList = post.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    res.json(postList)
 }
 
 // Función para obtener una publicación por id
@@ -71,10 +88,9 @@ export const deletePostById = async (req, res) => {
 
 //Chronological order
 export const getChronologicalPosts = async (req, res) => {
-    const postsOrderedChronologically =  await Post.find().populate({path: 'author', select: 'username avatar -_id',})
-    let result = postsOrderedChronologically.sort((a, b) => new Date(b.createdAt).getTime() -
+    const posts = await Post.find().populate({path: 'author', select: 'username avatar -_id',})
+    let result = posts.sort((a, b) => new Date(b.createdAt).getTime() -
     new Date(a.createdAt).getTime());
-
     res.json(result)
 }
 
@@ -82,7 +98,7 @@ export const getChronologicalPosts = async (req, res) => {
 export const getPostByText = async(req, res) => {
     const {text} = req.params;
     console.log(text)
-   const post = await Post.find({text}).populate('author', 'username avatar -_id')
-   res.json(post)
+    const post = await Post.find({text}).populate('author', 'username avatar -_id')
+    res.json(post)
 }
 
