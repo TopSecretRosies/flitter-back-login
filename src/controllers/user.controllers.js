@@ -73,4 +73,5 @@ export const deleteUserById = async (req, res) => {
 export const getUserPosts = async (req, res) => {
     const user =  await User.findById(req.params.userId);
     const post =  await Post.find({author: user}).populate({path: 'author', select: 'username -_id'})
-    res.status(200).json(post)}
+    res.status(200).json(post)
+}
