@@ -55,6 +55,7 @@ export const updateProfilePhoto = async (req, res) => {
 
         const user = await User.findById(req.userId, {password: 0})
         user.avatar = newAvatar
+        user.save()
         console.log(user)
         res.status(200).json(user)
     } catch(error) {
