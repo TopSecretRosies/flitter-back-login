@@ -43,13 +43,13 @@ export const createPost = async (req, res) => {
 
 // Función para obtener publicaciones
 export const getPosts = async (req, res) => {
-     const post = await Post.find().populate({path: 'author', select: 'username -_id'})
+     const post = await Post.find().populate('author', 'username -_id')
      res.json(post)
 }
 
 // Función para obtener una publicación por id
 export const getPostById = async (req, res) => {
-   const post =  await Post.findById(req.params.postId);
+   const post =  await Post.findById(req.params.postId).populate('author', 'username -_id')
    res.status(200).json(post)
 }
 
@@ -57,7 +57,7 @@ export const getPostById = async (req, res) => {
 export const updatePostById = async (req, res) => {
     const updatePost = await Post.findByIdAndUpdate(req.params.postId, req.body, {
         new: true
-    })
+    }).populate('author', 'username -_id')
     res.status(200).json(updatePost)
 
 }
@@ -69,21 +69,20 @@ export const deletePostById = async (req, res) => {
     res.status(204).json()
 }
 
-//Chronologica order
-
+//Chronological order
 export const getChronologicalPosts = async (req, res) => {
-    const postsOrderedChronologically =  await Post.find()
+    const postsOrderedChronologically =  await Post.find().populate({path: 'author', select: 'username -_id'})
     let result = postsOrderedChronologically.sort((a, b) => new Date(b.createdAt).getTime() -
     new Date(a.createdAt).getTime());
 
     res.json(result)
 }
 
-// FUnción para filtrar publicaciones
+// Función para filtrar publicaciones
 export const getPostByText = async(req, res) => {
     const {text} = req.params;
     console.log(text)
-   const post = await Post.find({text})
+   const post = await Post.find({text}).populate('author', 'username -_id')
    res.json(post)
 }
 
