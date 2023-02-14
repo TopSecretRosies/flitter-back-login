@@ -33,7 +33,7 @@ Sending an object like:
 to
 [POST] /api/signin
 Response:
-{token: }
+{token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZTI5ZTEyNWE0NDMzNGJjNDg1ZDQ2ZSIsImlhdCI6MTY3NjQxMjAwMSwiZXhwIjoxNjc2NDk4NDAxfQ.1b2ytWhZK9lQxUp-hKo8cDH21ikfTBhgCTiXKSempII}
 ```
 
 Register
@@ -44,10 +44,9 @@ Register
 Perfil y publicaciones del usuario que ha hecho log in
 ```sh
 Include header 'x-access-token' and send a token like:
-token: ''
+token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZTI5ZTEyNWE0NDMzNGJjNDg1ZDQ2ZSIsImlhdCI6MTY3NjQxMjAwMSwiZXhwIjoxNjc2NDk4NDAxfQ.1b2ytWhZK9lQxUp-hKo8cDH21ikfTBhgCTiXKSempII'
 to: 
 [GET] /api/profile
-Response:
 ```
 
 Subir/Actualizar imagen de perfil
@@ -61,12 +60,12 @@ Listado de publicaciones
 [GET] /api/posts
 
 post Schema ({
-    author: ,
-    text: ,
-    image: ,
-    createdAt: ,
-    updatedAt: ,
-    id: 
+    author: object.id,
+    text: string,
+    image: string,
+    createdAt: Date ,
+    updatedAt: Date,
+    id: string
 })
 ```
 
@@ -79,8 +78,8 @@ Solo el usuario registrado puede mandar un objeto tipo:
 }
 a
 [POST] /api/posts/
-Response:
 ```
+
 Borrar una publicación
 ```sh
 [DELETE] /api/posts/(id)
@@ -91,11 +90,11 @@ Listado de usuarios
 [GET] /api/users
 
 user Schema ({
-    username:
-    email:
-    password:
-    avatar:
-    role:
-    id:
+    username: string
+    email: string
+    password: string
+    avatar: string
+    role: object.id
+    id: string
 })
 ```
