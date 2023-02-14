@@ -23,12 +23,22 @@ Puerto
 http://localhost:3000/
 ```
 
-Perfil y puublicaciones de un usuario
+Log in
+```sh
+[POST] /api/signin
+```
+
+Register
+```sh
+[POST] /api/signup
+```
+
+Perfil y publicaciones del usuario que ha hecho log in
 ```sh
 [GET] /api/profile
 ```
 
-Subir imagen de perfil desde el perfil
+Subir/Actualizar imagen de perfil
 ```sh
 [POST] /api/profile
 ```
@@ -38,29 +48,21 @@ Listado de publicaciones
 [GET] /api/posts
 
 post Schema ({
-
+    author: ,
+    text: ,
+    image: ,
+    createdAt: ,
+    updatedAt: ,
+    id: 
 })
 ```
-Mostrar una sola publicación
-```sh
-[GET] /api/posts/(id)
-```
 
-Modificar/actualizar una publicación
-```sh
-Mandar un objeto tipo:
-{
-    "text": "new text"
-}
-a
-[PUT] /api/posts/(id)
-
-```
 Crear una publicación nueva
 ```sh
-Mandar un objeto tipo:
+Solo el usuario registrado puede mandar un objeto tipo:
 {
-
+"text": "string"
+"image": "file"
 }
 a
 [POST] /api/posts/
@@ -76,6 +78,11 @@ Listado de usuarios
 [GET] /api/users
 
 user Schema ({
-
+    username:
+    email:
+    password:
+    avatar:
+    role:
+    id:
 })
 ```
