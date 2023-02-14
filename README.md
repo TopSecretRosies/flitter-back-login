@@ -25,7 +25,15 @@ http://localhost:3000/
 
 Log in
 ```sh
+Sending an object like:
+{
+"enmail":
+"password":
+}
+to
 [POST] /api/signin
+Response:
+{token: }
 ```
 
 Register
@@ -35,11 +43,16 @@ Register
 
 Perfil y publicaciones del usuario que ha hecho log in
 ```sh
+Include header 'x-access-token' and send a token like:
+token: ''
+to: 
 [GET] /api/profile
+Response:
 ```
 
 Subir/Actualizar imagen de perfil
 ```sh
+Send a file to
 [POST] /api/profile
 ```
 
@@ -66,7 +79,7 @@ Solo el usuario registrado puede mandar un objeto tipo:
 }
 a
 [POST] /api/posts/
-
+Response:
 ```
 Borrar una publicación
 ```sh
