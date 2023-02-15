@@ -18,7 +18,7 @@ Start application:
 npm start
 ```
 
-Puerto
+Port
 ```sh
 http://localhost:3000/
 ```
@@ -27,13 +27,13 @@ Log in
 ```sh
 Sending an object like:
 {
-"enmail":
-"password":
+"enmail": "carl"
+"password": "1234"
 }
 to
 [POST] /api/signin
 Response:
-{token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZTI5ZTEyNWE0NDMzNGJjNDg1ZDQ2ZSIsImlhdCI6MTY3NjQxMjAwMSwiZXhwIjoxNjc2NDk4NDAxfQ.1b2ytWhZK9lQxUp-hKo8cDH21ikfTBhgCTiXKSempII}
+{token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZTI5ZTEyNWE0NDMzNGJjNDg1ZDQ2ZSIsImlhdCI6MTY3NjQxMjAwMSwiZXhwIjoxNjc2NDk4NDAxfQ.1b2ytWhZK9lQxUp-hKo8cDH21ikfTBhgCTiXKSempII'}
 ```
 
 Register
@@ -41,7 +41,7 @@ Register
 [POST] /api/signup
 ```
 
-Perfil y publicaciones del usuario que ha hecho log in
+Profile ans posts of the logged in user
 ```sh
 Include header 'x-access-token' and send a token like:
 token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZTI5ZTEyNWE0NDMzNGJjNDg1ZDQ2ZSIsImlhdCI6MTY3NjQxMjAwMSwiZXhwIjoxNjc2NDk4NDAxfQ.1b2ytWhZK9lQxUp-hKo8cDH21ikfTBhgCTiXKSempII'
@@ -49,13 +49,13 @@ to:
 [GET] /api/profile
 ```
 
-Subir/Actualizar imagen de perfil
+Post/Update profile picture
 ```sh
 Send a file to
 [POST] /api/profile
 ```
 
-Listado de publicaciones
+Post list
 ```sh
 [GET] /api/posts
 
@@ -69,23 +69,23 @@ post Schema ({
 })
 ```
 
-Crear una publicación nueva
+Create new post
 ```sh
-Solo el usuario registrado puede mandar un objeto tipo:
+Only the logged in user can send an object like:
 {
 "text": "string"
 "image": "file"
 }
-a
+to
 [POST] /api/posts/
 ```
 
-Borrar una publicación
+Delete a post
 ```sh
 [DELETE] /api/posts/(id)
 ```
 
-Listado de usuarios
+List of users
 ```sh
 [GET] /api/users
 
