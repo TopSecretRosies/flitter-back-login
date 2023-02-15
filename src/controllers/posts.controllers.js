@@ -49,7 +49,7 @@ export const getPosts = async (req, res) => {
     // Paginación                       /api/posts?skip=0&limit=10
     const skip = req.query.skip;
     const limit = req.query.limit;
-
+    const sort = req.query.sort
     const filtro = {}
     if (author) {
         const foundUser = await User.find({username: {$in: author}})
@@ -59,9 +59,8 @@ export const getPosts = async (req, res) => {
         filtro.text = text
     }
 
-    const post = await Post.lista(filtro, skip, limit)
-    let postList = post.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-    res.json(postList)
+    const post = await Post.lista(filtro, skip, limit, sort)
+    res.json(post)
 }
 
 // Función para obtener una publicación por id

@@ -15,13 +15,13 @@ const postSchema = mongoose.Schema({
     versionKey: false
 })
 
-postSchema.statics.lista = function(filtro, skip, limit) {
-    const query = Post.find(filtro).populate('author', 'username avatar -_id');
+postSchema.statics.lista = function(filtro, skip, limit, sort) {
+    const query = Post.find(filtro).populate('author', 'username avatar');
     query.skip(skip);
     query.limit(limit);
-    //query.select(fields);
-    //query.sort(sort);
-    return query.exec();
+    query.sort(sort);
+    return query.exec()
+
 }
 
 const Post = mongoose.model('Post', postSchema)
